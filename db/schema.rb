@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126034651) do
+ActiveRecord::Schema.define(version: 20160127055526) do
 
   create_table "profiles", force: :cascade do |t|
     t.string   "gender",     limit: 6
@@ -20,23 +20,32 @@ ActiveRecord::Schema.define(version: 20160126034651) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.string   "last_name"
+    t.integer  "user_id"
   end
+
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
 
   create_table "todo_items", force: :cascade do |t|
     t.date     "due_date"
     t.string   "title"
     t.text     "description"
-    t.boolean  "completed",   default: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.boolean  "completed",    default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "todo_list_id"
   end
+
+  add_index "todo_items", ["todo_list_id"], name: "index_todo_items_on_todo_list_id"
 
   create_table "todo_lists", force: :cascade do |t|
     t.string   "list_name"
     t.date     "list_due_date"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "user_id"
   end
+
+  add_index "todo_lists", ["user_id"], name: "index_todo_lists_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
