@@ -4,7 +4,7 @@ class CreateTodoItems < ActiveRecord::Migration
       t.date :due_date
       t.string :title
       t.text :description
-      t.boolean :completed, default: false
+      t.boolean :completed, :null => false, :default => false
 
       t.timestamps null: false
     end
